@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ubuntu on Stephen Jamieson</title>
-    <link>http://stephenjamieson.info/tags/ubuntu/</link>
+    <link>https://stephenjamieson.info/tags/ubuntu/</link>
     <description>Recent content in Ubuntu on Stephen Jamieson</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 26 Nov 2013 09:09:37 -0400</lastBuildDate>
-    <atom:link href="http://stephenjamieson.info/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://stephenjamieson.info/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>smokeping on saucy</title>
-      <link>http://stephenjamieson.info/post/smokeping-saucy/</link>
+      <link>https://stephenjamieson.info/post/smokeping-saucy/</link>
       <pubDate>Tue, 26 Nov 2013 09:09:37 -0400</pubDate>
       
-      <guid>http://stephenjamieson.info/post/smokeping-saucy/</guid>
+      <guid>https://stephenjamieson.info/post/smokeping-saucy/</guid>
       <description>
 
 &lt;p&gt;For anyone attempting to run smokeping with nginx and fcgiwrap, there is a &lt;a href=&#34;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=695438&#34;&gt;major bug&lt;/a&gt; in the package that ubuntu/debian provides.&lt;/p&gt;

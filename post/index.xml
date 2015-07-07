@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Stephen Jamieson</title>
-    <link>http://stephenjamieson.info/post/</link>
+    <link>https://stephenjamieson.info/post/</link>
     <description>Recent content in Posts on Stephen Jamieson</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 07 Jul 2015 09:29:08 -0400</lastBuildDate>
-    <atom:link href="http://stephenjamieson.info/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://stephenjamieson.info/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Hugo</title>
-      <link>http://stephenjamieson.info/post/hugo/</link>
+      <link>https://stephenjamieson.info/post/hugo/</link>
       <pubDate>Tue, 07 Jul 2015 09:29:08 -0400</pubDate>
       
-      <guid>http://stephenjamieson.info/post/hugo/</guid>
+      <guid>https://stephenjamieson.info/post/hugo/</guid>
       <description>
 
 &lt;h1 id=&#34;new-static-site-generator:e8fb9c67eba912c72729806db31eaa1b&#34;&gt;New static site generator&lt;/h1&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>smokeping on saucy</title>
-      <link>http://stephenjamieson.info/post/smokeping-saucy/</link>
+      <link>https://stephenjamieson.info/post/smokeping-saucy/</link>
       <pubDate>Tue, 26 Nov 2013 09:09:37 -0400</pubDate>
       
-      <guid>http://stephenjamieson.info/post/smokeping-saucy/</guid>
+      <guid>https://stephenjamieson.info/post/smokeping-saucy/</guid>
       <description>
 
 &lt;p&gt;For anyone attempting to run smokeping with nginx and fcgiwrap, there is a &lt;a href=&#34;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=695438&#34;&gt;major bug&lt;/a&gt; in the package that ubuntu/debian provides.&lt;/p&gt;
