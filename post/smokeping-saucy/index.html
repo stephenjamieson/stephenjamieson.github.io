@@ -1,0 +1,131 @@
+  <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title> smokeping on saucy </title>
+    
+	<link rel="stylesheet" href="http://stephenjamieson.info//css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://stephenjamieson.info//css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://stephenjamieson.info//css/theme.css" />
+    
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link href="" rel="alternate" type="application/rss+xml" title="Stephen Jamieson" />
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-right">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://stephenjamieson.info/">Stephen Jamieson</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container page-wrap">
+      <h1>smokeping on saucy</h1>
+      <small class="post-meta">Nov 26, 2013</small>
+      <div class="post-content">
+        
+
+<p>For anyone attempting to run smokeping with nginx and fcgiwrap, there is a <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=695438">major bug</a> in the package that ubuntu/debian provides.</p>
+
+<h5 id="install-smokeping:1a610fc03acb1361c1fc1a239416a202">Install smokeping</h5>
+
+<p><div class="highlight" style="background: #002B36"><pre style="line-height: 125%">apt-get --no-install-recommends install smokeping
+</pre></div>
+</p>
+
+<h5 id="install-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">Install fcgiwrap</h5>
+
+<p><div class="highlight" style="background: #002B36"><pre style="line-height: 125%">apt-get install fcgiwrap
+</pre></div>
+</p>
+
+<h5 id="in-your-nginx-site-config-add-the-cgi-configuration-for-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add the cgi configuration for fcgiwrap</h5>
+
+<p><code>/etc/nginx/sites-enabled/yoursite</code>:</p>
+
+<p><div class="highlight" style="background: #002B36"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #93A1A1">~</span> <span style="color: #DC322F">\.cgi$</span> <span style="color: #93A1A1">{</span>
+    <span style="color: #859900">fastcgi_intercept_errors</span>  <span style="color: #CB4B16">on</span><span style="color: #93A1A1">;</span>
+    <span style="color: #859900">include</span>                   <span style="color: #2AA198">fastcgi_params</span><span style="color: #93A1A1">;</span>
+    <span style="color: #859900">fastcgi_pass</span>              <span style="color: #2AA198">unix:/var/run/fcgiwrap.socket</span><span style="color: #93A1A1">;</span>
+    <span style="color: #859900">fastcgi_param</span>             <span style="color: #2AA198">SCRIPT_NAME</span>           <span style="color: #268BD2">$fastcgi_script_name</span><span style="color: #93A1A1">;</span>
+    <span style="color: #859900">fastcgi_param</span>             <span style="color: #2AA198">SCRIPT_FILENAME</span>       <span style="color: #268BD2">$document_root$fastcgi_script_name</span><span style="color: #93A1A1">;}</span>
+</pre></div>
+</p>
+
+<h5 id="in-your-nginx-site-config-add-a-smokeping-location-i-also-use-authentication-here:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add a smokeping location (I also use authentication here)</h5>
+
+<p><code>/etc/nginx/sites-enabled/yoursite</code>:
+<div class="highlight" style="background: #002B36"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #2AA198">/smokeping</span> <span style="color: #93A1A1">{</span>
+    <span style="color: #859900">gzip</span>                  <span style="color: #CB4B16">off</span><span style="color: #93A1A1">;</span>
+    <span style="color: #859900">index</span>                 <span style="color: #2AA198">smokeping.cgi</span><span style="color: #93A1A1">;</span>
+<span style="color: #93A1A1">}</span>
+</pre></div>
+</p>
+
+<h5 id="symlink-smokeping-folder-to-nginx-share:1a610fc03acb1361c1fc1a239416a202">Symlink smokeping folder to nginx share</h5>
+
+<p><div class="highlight" style="background: #002B36"><pre style="line-height: 125%">ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
+</pre></div>
+</p>
+
+<h5 id="ignore-smokeping-fcgi-dist-and-symlink-the-correct-cgi-script:1a610fc03acb1361c1fc1a239416a202">Ignore smokeping.fcgi.dist and symlink the correct cgi script</h5>
+
+<p><div class="highlight" style="background: #002B36"><pre style="line-height: 125%">ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
+</pre></div>
+</p>
+
+<h5 id="edit-the-config-files-in-etc-smokeping-config-d-to-your-liking:1a610fc03acb1361c1fc1a239416a202">Edit the config files in /etc/smokeping/config.d to your liking</h5>
+
+<p>Good luck!</p>
+
+        
+      </div>
+    </div>
+    <footer class="site-footer">
+	<div class="container">
+		<h4>Stephen Jamieson</h4>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="form-group">
+					<p></p>
+					<a href="mailto:"></a>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<p>
+						<span class="fa fa-fw fa-github"></span>
+						<a href="https://github.com/"></a>
+						<br>
+						<span class="fa fa-fw fa-twitter"></span>
+						<a href="https://twitter.com/"></a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+    <script src="http://stephenjamieson.info//js/jquery-2.1.4.min.js"></script>
+<script src="http://stephenjamieson.info//js/bootstrap.min.js"></script>
+
+  </body>
+</html>
