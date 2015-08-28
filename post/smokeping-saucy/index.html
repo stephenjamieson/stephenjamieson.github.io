@@ -63,13 +63,13 @@
 
 <h5 id="install-smokeping:1a610fc03acb1361c1fc1a239416a202">Install smokeping</h5>
 
-<div class="highlight" style="background: #002b36"><pre style="line-height: 125%">apt-get --no-install-recommends install smokeping
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">apt-get --no-install-recommends install smokeping
 </pre></div>
 
 
 <h5 id="install-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">Install fcgiwrap</h5>
 
-<div class="highlight" style="background: #002b36"><pre style="line-height: 125%">apt-get install fcgiwrap
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">apt-get install fcgiwrap
 </pre></div>
 
 
@@ -77,34 +77,34 @@
 
 <p><code>/etc/nginx/sites-enabled/yoursite</code>:</p>
 
-<div class="highlight" style="background: #002b36"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #839496">~</span> <span style="color: #2aa198">\.cgi$</span> <span style="color: #839496">{</span>
-    <span style="color: #cb4b16">fastcgi_intercept_errors</span>  <span style="color: #b58900">on</span><span style="color: #839496">;</span>
-    <span style="color: #cb4b16">include</span>                   <span style="color: #2aa198">fastcgi_params</span><span style="color: #839496">;</span>
-    <span style="color: #cb4b16">fastcgi_pass</span>              <span style="color: #2aa198">unix:/var/run/fcgiwrap.socket</span><span style="color: #839496">;</span>
-    <span style="color: #cb4b16">fastcgi_param</span>             <span style="color: #2aa198">SCRIPT_NAME</span>           <span style="color: #cb4b16">$fastcgi_script_name</span><span style="color: #839496">;</span>
-    <span style="color: #cb4b16">fastcgi_param</span>             <span style="color: #2aa198">SCRIPT_FILENAME</span>       <span style="color: #cb4b16">$document_root$fastcgi_script_name</span><span style="color: #839496">;}</span>
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #657b83">~</span> <span style="color: #2aa198">\.cgi$</span> <span style="color: #657b83">{</span>
+    <span style="color: #cb4b16">fastcgi_intercept_errors</span>  <span style="color: #b58900">on</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">include</span>                   <span style="color: #2aa198">fastcgi_params</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">fastcgi_pass</span>              <span style="color: #2aa198">unix:/var/run/fcgiwrap.socket</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">fastcgi_param</span>             <span style="color: #2aa198">SCRIPT_NAME</span>           <span style="color: #cb4b16">$fastcgi_script_name</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">fastcgi_param</span>             <span style="color: #2aa198">SCRIPT_FILENAME</span>       <span style="color: #cb4b16">$document_root$fastcgi_script_name</span><span style="color: #657b83">;}</span>
 </pre></div>
 
 
 <h5 id="in-your-nginx-site-config-add-a-smokeping-location-i-also-use-authentication-here:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add a smokeping location (I also use authentication here)</h5>
 
 <p><code>/etc/nginx/sites-enabled/yoursite</code>:
-<div class="highlight" style="background: #002b36"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #2aa198">/smokeping</span> <span style="color: #839496">{</span>
-    <span style="color: #cb4b16">gzip</span>                  <span style="color: #b58900">off</span><span style="color: #839496">;</span>
-    <span style="color: #cb4b16">index</span>                 <span style="color: #2aa198">smokeping.cgi</span><span style="color: #839496">;</span>
-<span style="color: #839496">}</span>
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #2aa198">/smokeping</span> <span style="color: #657b83">{</span>
+    <span style="color: #cb4b16">gzip</span>                  <span style="color: #b58900">off</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">index</span>                 <span style="color: #2aa198">smokeping.cgi</span><span style="color: #657b83">;</span>
+<span style="color: #657b83">}</span>
 </pre></div>
 </p>
 
 <h5 id="symlink-smokeping-folder-to-nginx-share:1a610fc03acb1361c1fc1a239416a202">Symlink smokeping folder to nginx share</h5>
 
-<div class="highlight" style="background: #002b36"><pre style="line-height: 125%">ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
 </pre></div>
 
 
 <h5 id="ignore-smokeping-fcgi-dist-and-symlink-the-correct-cgi-script:1a610fc03acb1361c1fc1a239416a202">Ignore smokeping.fcgi.dist and symlink the correct cgi script</h5>
 
-<div class="highlight" style="background: #002b36"><pre style="line-height: 125%">ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
 </pre></div>
 
 
