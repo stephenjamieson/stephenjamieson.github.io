@@ -17,6 +17,8 @@
       <guid>https://stephenjamieson.info/post/smokeping-saucy/</guid>
       <description>
 
+&lt;h2 id=&#34;smokeping-on-suacy:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Smokeping on Suacy!&lt;/h2&gt;
+
 &lt;p&gt;For anyone attempting to run smokeping with nginx and fcgiwrap, there is a &lt;a href=&#34;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=695438&#34;&gt;major bug&lt;/a&gt; in the package that ubuntu/debian provides.&lt;/p&gt;
 
 &lt;h5 id=&#34;install-smokeping:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Install smokeping&lt;/h5&gt;
