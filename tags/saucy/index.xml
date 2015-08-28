@@ -21,50 +21,50 @@
 
 &lt;h5 id=&#34;install-smokeping:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Install smokeping&lt;/h5&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #002B36&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;apt-get --no-install-recommends install smokeping
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+
+apt-get --no-install-recommends install smokeping
+
 
 &lt;h5 id=&#34;install-fcgiwrap:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Install fcgiwrap&lt;/h5&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #002B36&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;apt-get install fcgiwrap
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+
+apt-get install fcgiwrap
+
 
 &lt;h5 id=&#34;in-your-nginx-site-config-add-the-cgi-configuration-for-fcgiwrap:1a610fc03acb1361c1fc1a239416a202&#34;&gt;In your nginx site config, add the cgi configuration for fcgiwrap&lt;/h5&gt;
 
 &lt;p&gt;&lt;code&gt;/etc/nginx/sites-enabled/yoursite&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #002B36&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #859900&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #93A1A1&#34;&gt;~&lt;/span&gt; &lt;span style=&#34;color: #DC322F&#34;&gt;\.cgi$&lt;/span&gt; &lt;span style=&#34;color: #93A1A1&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;fastcgi_intercept_errors&lt;/span&gt;  &lt;span style=&#34;color: #CB4B16&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;include&lt;/span&gt;                   &lt;span style=&#34;color: #2AA198&#34;&gt;fastcgi_params&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;fastcgi_pass&lt;/span&gt;              &lt;span style=&#34;color: #2AA198&#34;&gt;unix:/var/run/fcgiwrap.socket&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;fastcgi_param&lt;/span&gt;             &lt;span style=&#34;color: #2AA198&#34;&gt;SCRIPT_NAME&lt;/span&gt;           &lt;span style=&#34;color: #268BD2&#34;&gt;$fastcgi_script_name&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;fastcgi_param&lt;/span&gt;             &lt;span style=&#34;color: #2AA198&#34;&gt;SCRIPT_FILENAME&lt;/span&gt;       &lt;span style=&#34;color: #268BD2&#34;&gt;$document_root$fastcgi_script_name&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+
+location ~ \.cgi$ {
+    fastcgi_intercept_errors  on;
+    include                   fastcgi_params;
+    fastcgi_pass              unix:/var/run/fcgiwrap.socket;
+    fastcgi_param             SCRIPT_NAME           $fastcgi_script_name;
+    fastcgi_param             SCRIPT_FILENAME       $document_root$fastcgi_script_name;}
+
 
 &lt;h5 id=&#34;in-your-nginx-site-config-add-a-smokeping-location-i-also-use-authentication-here:1a610fc03acb1361c1fc1a239416a202&#34;&gt;In your nginx site config, add a smokeping location (I also use authentication here)&lt;/h5&gt;
 
 &lt;p&gt;&lt;code&gt;/etc/nginx/sites-enabled/yoursite&lt;/code&gt;:
-&lt;div class=&#34;highlight&#34; style=&#34;background: #002B36&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #859900&#34;&gt;location&lt;/span&gt; &lt;span style=&#34;color: #2AA198&#34;&gt;/smokeping&lt;/span&gt; &lt;span style=&#34;color: #93A1A1&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;gzip&lt;/span&gt;                  &lt;span style=&#34;color: #CB4B16&#34;&gt;off&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;&lt;/span&gt;
-    &lt;span style=&#34;color: #859900&#34;&gt;index&lt;/span&gt;                 &lt;span style=&#34;color: #2AA198&#34;&gt;smokeping.cgi&lt;/span&gt;&lt;span style=&#34;color: #93A1A1&#34;&gt;;&lt;/span&gt;
-&lt;span style=&#34;color: #93A1A1&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+
+location /smokeping {
+    gzip                  off;
+    index                 smokeping.cgi;
+}
 &lt;/p&gt;
 
 &lt;h5 id=&#34;symlink-smokeping-folder-to-nginx-share:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Symlink smokeping folder to nginx share&lt;/h5&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #002B36&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+
+ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
+
 
 &lt;h5 id=&#34;ignore-smokeping-fcgi-dist-and-symlink-the-correct-cgi-script:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Ignore smokeping.fcgi.dist and symlink the correct cgi script&lt;/h5&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #002B36&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+
+ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
+
 
 &lt;h5 id=&#34;edit-the-config-files-in-etc-smokeping-config-d-to-your-liking:1a610fc03acb1361c1fc1a239416a202&#34;&gt;Edit the config files in /etc/smokeping/config.d to your liking&lt;/h5&gt;
 
