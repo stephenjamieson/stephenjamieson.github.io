@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>smokeping on saucy</title>
+
+ 	
+	<link href="/css/journal.css" rel="stylesheet">
+
+ 	
+ 	<link href="/css/style.css" rel="stylesheet">
+</head>
+<body lang="en">
+	<div class="container">
+		<div class="row">
+			<div class="navbar navbar-default navbar-inverse" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="
+
+<div class="container">	
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<h3>smokeping on saucy</h3>
+				<span class="label label-primary">Tue Nov 26, 2013</span> in 
+				 using tags 			 
+				
+					
+					<a href="/tags/saucy">saucy</a>
+				
+					 , 
+					<a href="/tags/nginx">nginx</a>
+				
+					 , 
+					<a href="/tags/fcgiwrap">fcgiwrap</a>
+				
+					 , 
+					<a href="/tags/ubuntu">ubuntu</a>
+				
+			</small>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<br>
+			
+
+<p>For anyone attempting to run smokeping with nginx and fcgiwrap, there is a <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=695438">major bug</a> in the package that ubuntu/debian provides.</p>
+
+<h5 id="install-smokeping:1a610fc03acb1361c1fc1a239416a202">Install smokeping</h5>
+
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">apt-get --no-install-recommends install smokeping
+</pre></div>
+
+
+<h5 id="install-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">Install fcgiwrap</h5>
+
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">apt-get install fcgiwrap
+</pre></div>
+
+
+<h5 id="in-your-nginx-site-config-add-the-cgi-configuration-for-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add the cgi configuration for fcgiwrap</h5>
+
+<p><code>/etc/nginx/sites-enabled/yoursite</code>:</p>
+
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #657b83">~</span> <span style="color: #2aa198">\.cgi$</span> <span style="color: #657b83">{</span>
+    <span style="color: #cb4b16">fastcgi_intercept_errors</span>  <span style="color: #b58900">on</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">include</span>                   <span style="color: #2aa198">fastcgi_params</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">fastcgi_pass</span>              <span style="color: #2aa198">unix:/var/run/fcgiwrap.socket</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">fastcgi_param</span>             <span style="color: #2aa198">SCRIPT_NAME</span>           <span style="color: #cb4b16">$fastcgi_script_name</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">fastcgi_param</span>             <span style="color: #2aa198">SCRIPT_FILENAME</span>       <span style="color: #cb4b16">$document_root$fastcgi_script_name</span><span style="color: #657b83">;}</span>
+</pre></div>
+
+
+<h5 id="in-your-nginx-site-config-add-a-smokeping-location-i-also-use-authentication-here:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add a smokeping location (I also use authentication here)</h5>
+
+<p><code>/etc/nginx/sites-enabled/yoursite</code>:
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%"><span style="color: #859900">location</span> <span style="color: #2aa198">/smokeping</span> <span style="color: #657b83">{</span>
+    <span style="color: #cb4b16">gzip</span>                  <span style="color: #b58900">off</span><span style="color: #657b83">;</span>
+    <span style="color: #cb4b16">index</span>                 <span style="color: #2aa198">smokeping.cgi</span><span style="color: #657b83">;</span>
+<span style="color: #657b83">}</span>
+</pre></div>
+</p>
+
+<h5 id="symlink-smokeping-folder-to-nginx-share:1a610fc03acb1361c1fc1a239416a202">Symlink smokeping folder to nginx share</h5>
+
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
+</pre></div>
+
+
+<h5 id="ignore-smokeping-fcgi-dist-and-symlink-the-correct-cgi-script:1a610fc03acb1361c1fc1a239416a202">Ignore smokeping.fcgi.dist and symlink the correct cgi script</h5>
+
+<div class="highlight" style="background: #fdf6e3"><pre style="line-height: 125%">ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
+</pre></div>
+
+
+<h5 id="edit-the-config-files-in-etc-smokeping-config-d-to-your-liking:1a610fc03acb1361c1fc1a239416a202">Edit the config files in /etc/smokeping/config.d to your liking</h5>
+
+<p>Good luck!</p>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<hr>
+		</div>
+	</div>	
+</div>
+
+  <div class="container">
+    <div class="row col-md-12">
+          <footer>
+            <div>
+                <p>
+                    &copy; 2014  ~ Powered By <a href="http://hugo.spf13.com">Hugo</a>
+                </p>
+            </div>
+            </footer>
+        </div>
+    </div>
+
+    
+    
+    <script src="/js/jquery-min-2.1.1.js"></script>
+    <script src="/js/bootstrap.min-3.1.1.js"></script>
+    </body>
+</html>
