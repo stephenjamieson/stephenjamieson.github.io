@@ -5,9 +5,9 @@ article img {
   text-align: center;
 }
 
-/* ShareThis Buttons */
-#share-this {
-  margin: 40px 0 40px 0;
+/* Goodshare Buttons */
+#goodshare {
+  margin: 20px 0 40px 0;
 }
 
 /* Pagination */
@@ -26,6 +26,5 @@ nav.pagination span.next {
   max-width: 300px;
 }
 nav.pagination a {
-#  color: #29abe2;
-  color: #0EC9B3;
+  color: #29abe2;
 }

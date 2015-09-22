@@ -28,10 +28,8 @@
   <link href="https://stephenjamieson.infoindex.xml" rel="feed" type="application/rss+xml" title="Stephen Jamieson" />
 
   
-  <script type="text/javascript">var switchTo5x=true;</script>
-  <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
-  <script type="text/javascript">stLight.options({publisher: "2b9fffc6-b3fe-4988-a0ef-4f9dcce98eaa", doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>
-
+  <script async type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script async type="text/javascript" src="https://cdn.jsdelivr.net/jquery.goodshare.js/latest/goodshare.min.js"></script>
 
 </head>
 
@@ -52,7 +50,6 @@
           
           
           <li><a href="https://github.com/stephenjamieson" target="_blank">GitHub</a></li>
-          <li><a href="https://www.dropbox.com/s/u7q8h3uylfjctab/stephen_jamieson_resume.pdf?dl=0" target="_blank">Resume/CV</a></li>
           
         </ul>
       </div>
@@ -84,28 +81,28 @@
 
 <h5 id="install-smokeping:1a610fc03acb1361c1fc1a239416a202">Install smokeping</h5>
 
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">apt-get --no-install-recommends install smokeping
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">apt-get --no-install-recommends install smokeping
 </pre></div>
-
+</p>
 
 <h5 id="install-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">Install fcgiwrap</h5>
 
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">apt-get install fcgiwrap
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">apt-get install fcgiwrap
 </pre></div>
-
+</p>
 
 <h5 id="in-your-nginx-site-config-add-the-cgi-configuration-for-fcgiwrap:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add the cgi configuration for fcgiwrap</h5>
 
 <p><code>/etc/nginx/sites-enabled/yoursite</code>:</p>
 
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">location</span> ~ <span style="color: #33AAAA">\.cgi$</span> {
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">location</span> ~ <span style="color: #33AAAA">\.cgi$</span> {
     <span style="color: #006699; font-weight: bold">fastcgi_intercept_errors</span>  <span style="color: #336600">on</span>;
     <span style="color: #006699; font-weight: bold">include</span>                   <span style="color: #CC3300">fastcgi_params</span>;
     <span style="color: #006699; font-weight: bold">fastcgi_pass</span>              <span style="color: #CC3300">unix:/var/run/fcgiwrap.socket</span>;
     <span style="color: #006699; font-weight: bold">fastcgi_param</span>             <span style="color: #CC3300">SCRIPT_NAME</span>           <span style="color: #003333">$fastcgi_script_name</span>;
     <span style="color: #006699; font-weight: bold">fastcgi_param</span>             <span style="color: #CC3300">SCRIPT_FILENAME</span>       <span style="color: #003333">$document_root$fastcgi_script_name</span>;}
 </pre></div>
-
+</p>
 
 <h5 id="in-your-nginx-site-config-add-a-smokeping-location-i-also-use-authentication-here:1a610fc03acb1361c1fc1a239416a202">In your nginx site config, add a smokeping location (I also use authentication here)</h5>
 
@@ -119,15 +116,15 @@
 
 <h5 id="symlink-smokeping-folder-to-nginx-share:1a610fc03acb1361c1fc1a239416a202">Symlink smokeping folder to nginx share</h5>
 
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">ln -s /usr/share/smokeping/www /usr/share/nginx/html/smokeping
 </pre></div>
-
+</p>
 
 <h5 id="ignore-smokeping-fcgi-dist-and-symlink-the-correct-cgi-script:1a610fc03acb1361c1fc1a239416a202">Ignore smokeping.fcgi.dist and symlink the correct cgi script</h5>
 
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">ln -s /usr/lib/cgi-bin/smokeping.cgi /usr/share/nginx/html/smokeping/
 </pre></div>
-
+</p>
 
 <h5 id="edit-the-config-files-in-etc-smokeping-config-d-to-your-liking:1a610fc03acb1361c1fc1a239416a202">Edit the config files in /etc/smokeping/config.d to your liking</h5>
 
@@ -135,13 +132,12 @@
 
       
       
-      <div id="share-this" class="col span_10">
-        <span class='st_twitter_large' displayText='Tweet'></span>
-        <span class='st_facebook_large' displayText='Facebook'></span>
-        <span class='st_googleplus_large' displayText='Google +'></span>
-        <span class='st_pocket_large' displayText='Pocket'></span>
-        <span class='st_sharethis_large' displayText='ShareThis'></span>
-        <span class='st_email_large' displayText='Email'></span>  
+      <div id="goodshare" class="col span_to">
+        <a href="#" class="goodshare" data-type="fb">Facebook</a>
+        <a href="#" class="goodshare" data-type="tw">Twitter</a> 
+        <a href="#" class="goodshare" data-type="fb">Facebook</a> 
+	<a href="#" class="goodshare" data-type="gp">Google Plus</a> 
+        <a href="#" class="goodshare" data-type="rd">Reddit</a>
       </div>
     </article>
     
